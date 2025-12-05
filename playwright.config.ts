@@ -23,6 +23,13 @@ export default defineConfig<any>({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     headless: true,
+    viewport: { width: 1920, height: 1080 },
+    ignoreHTTPSErrors: true,
+    userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    launchOptions: {
+        args: ['--disable-http2']
+    },
+
     
     actors: async ({ browser, contextOptions }: { browser: any, contextOptions: any }, use: any) => {
         const actorsInstance = new Actors(browser, contextOptions);
