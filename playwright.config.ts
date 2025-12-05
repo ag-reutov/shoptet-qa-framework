@@ -1,7 +1,9 @@
 import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test';
 import { Actors } from './src/actors/Actors'; 
+import * as dotenv from 'dotenv';
+dotenv.config();
 
-export default defineConfig<PlaywrightTestConfig>({
+export default defineConfig<any>({
   testDir: './test/specs',
   timeout: 30 * 1000,
   expect: { timeout: 5000 },
@@ -22,8 +24,7 @@ export default defineConfig<PlaywrightTestConfig>({
     screenshot: 'only-on-failure',
     headless: true,
     
-    // 🥳 FINAL CORRECTED ACTORS FIXTURE 🥳
-    actors: async ({ browser, contextOptions }, use) => {
+    actors: async ({ browser, contextOptions }: { browser: any, contextOptions: any }, use: any) => {
         const actorsInstance = new Actors(browser, contextOptions);
         await use(actorsInstance);
     },
