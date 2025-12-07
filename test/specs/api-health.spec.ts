@@ -1,18 +1,29 @@
-import { describe, it } from '@serenity-js/playwright-test';
-import { GetRequest, Send } from '@serenity-js/rest';
-import { Ensure, equals } from '@serenity-js/assertions';
-import { Response } from '../../src/questions/api/Response';
+import { test, expect } from '@playwright/test';
 
-describe('Shoptet API Health', () => {
+test.describe('API Health Checks', () => {
 
-    it('confirms the storefront is available (200 OK)', async ({ actor }) => {
+    test('Homepage should return 200 OK', async ({ request }) => {
+        // 1. Start the timer
+        const startTime = Date.now();
         
-        await actor.attemptsTo(
-            // 1. Send a GET request to the homepage
-            Send.a(GetRequest.to('/')),
+        // 2. Send request
+        const response = await request.get('/');
+        
+        // 3. Stop the timer
+        const duration = Date.now() - startTime;
 
-            // 2. Ensure the server replies with 200
-            Ensure.that(Response.status(), equals(200))
-        );
+        // 4. Assertions
+        expect(response.status(), 'Server should respond with 200 OK').toBe(200);
+        expect(response.headers()['content-type']).toContain('text/html');
+        
+        // 5. Performance Check
+        console.log(`Response time: ${duration}ms`);
+        expect(duration).toBeLessThan(2000);
     });
+
+    test('Cart endpoint should exist', async ({ request }) => {
+        const response = await request.get('/kosik/');
+        expect(response.status()).toBe(200);
+    });
+
 });
