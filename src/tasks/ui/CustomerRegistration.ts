@@ -1,4 +1,3 @@
-// 👇 FIX 1: Clean imports (removed unused Actor, Question, TakeNotes)
 import { 
     Interaction, Task, notes, Wait, Check,
     UsesAbilities, AnswersQuestions, CollectsArtifacts 
@@ -21,8 +20,6 @@ const GenerateCredentials = Interaction.where(
         const email = faker.internet.email();
         const password = faker.internet.password({ length: 15, prefix: 'Test1!' });
 
-        // 👇 FIX 2: Cast actor to 'any' to access .attemptsTo()
-        // The restricted interface doesn't show attemptsTo, but it exists at runtime.
         await (actor as any).attemptsTo(
             notes().set('email', email),
             notes().set('password', password)
