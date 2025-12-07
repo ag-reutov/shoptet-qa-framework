@@ -1,0 +1,17 @@
+{
+    "configurations": [
+        {
+            "type": "pwa-node",
+            "request": "launch",
+            "name": "Debug Playwright Test: customer-registration",
+            "program": "${workspaceFolder}/node_modules/@playwright/test/cli.js",
+            "args": [
+                "test",
+                "test/specs/customer-registration.spec.ts"
+            ],
+            "cwd": "${workspaceFolder}",
+            "envFile": "${workspaceFolder}/.env",
+            "internalConsoleOptions": "neverOpen"
+        }
+    ]
+}

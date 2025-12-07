@@ -13,7 +13,7 @@ export class Actors implements Cast {
     prepare(actor: Actor): Actor {
         return actor.whoCan(
             BrowseTheWebWithPlaywright.using(this.browser, this.options),
-            CallAnApi.at(this.options.baseURL || 'https://www.shoptet.cz'),
+            CallAnApi.at(this.options.baseURL || 'https://755742.myshoptet.com'),
             TakeNotes.usingAnEmptyNotepad()
         );
     }
