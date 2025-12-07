@@ -14,7 +14,7 @@ jobs:
     # We use the official Docker container for the pipeline
     # This guarantees the environment matches the Dockerfile you just made
     container:
-      image: mcr.microsoft.com/playwright:v1.49.0-jammy
+      image: mcr.microsoft.com/playwright:v1.57.0-jammy
 
     steps:
     - uses: actions/checkout@v4

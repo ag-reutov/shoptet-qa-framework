@@ -1,6 +1,6 @@
 # Get the official Playwright image (matches your Playwright version)
 # We use 'jammy' (Ubuntu 22.04) which is standard
-FROM mcr.microsoft.com/playwright:v1.49.0-jammy
+FROM mcr.microsoft.com/playwright:v1.57.0-jammy
 
 # Set the working directory inside the container
 WORKDIR /app
