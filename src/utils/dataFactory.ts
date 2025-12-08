@@ -12,17 +12,28 @@ export type Customer = {
   country: string;
 };
 
-export const buildCustomer = (): Customer => ({
-  firstName: faker.person.firstName(),
-  lastName: faker.person.lastName(),
-  email: faker.internet.email().toLowerCase(),
-  password: faker.internet.password({ length: 12, memorable: true }),
-  phone: faker.phone.number('+420 6## ### ###'),
-  street: faker.location.streetAddress(),
-  city: faker.location.city(),
-  zip: faker.location.zipCode(),
-  country: 'Czech Republic',
-});
+export const buildCustomer = (): Customer => {
+  // Generate valid Czech mobile number: 705 + 6 random digits
+  const digit1 = faker.number.int({ min: 0, max: 9 });
+  const digit2 = faker.number.int({ min: 0, max: 9 });
+  const digit3 = faker.number.int({ min: 0, max: 9 });
+  const digit4 = faker.number.int({ min: 0, max: 9 });
+  const digit5 = faker.number.int({ min: 0, max: 9 });
+  const digit6 = faker.number.int({ min: 0, max: 9 });
+  const phone = `+420 705 ${digit1}${digit2}${digit3} ${digit4}${digit5}${digit6}`;
+
+  return {
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    email: faker.internet.email().toLowerCase(),
+    password: faker.internet.password({ length: 12, memorable: true }),
+    phone,
+    street: faker.location.streetAddress(),
+    city: faker.location.city(),
+    zip: faker.location.zipCode(),
+    country: 'Czech Republic',
+  };
+};
 
 export const buildCredentials = () => ({
   email: faker.internet.email().toLowerCase(),

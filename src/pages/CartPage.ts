@@ -7,8 +7,10 @@ export class CartPage extends BasePage {
 
   constructor(page: Page) {
     super(page);
-    this.checkoutButton = page.getByRole('button', { name: /pokračovat/i });
-    this.cartItems = page.locator('.cart-content, .cart-table, [class*="cart__item"]');
+    this.checkoutButton = page.getByTestId('buttonNextStep');
+    this.cartItems = page.locator(
+      '.cart-content, .cart-table, [class*="cart__item"], [class*="cart-item"]',
+    );
   }
 
   async goToCart() {
@@ -17,5 +19,10 @@ export class CartPage extends BasePage {
 
   async assertHasItems() {
     await expect(this.cartItems.first()).toBeVisible();
+  }
+
+  async proceedToCheckout() {
+    await this.checkoutButton.click();
+    await this.page.waitForURL(/objednavka\/krok-1/, { timeout: 10000 });
   }
 }
