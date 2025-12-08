@@ -1,18 +1,14 @@
-import { describe, it } from '@serenity-js/playwright-test';
-import { AdminLogin } from '../../src/tasks/ui/AdminLogin';
-import { Ensure, includes } from '@serenity-js/assertions'; 
-import { Page } from '@serenity-js/web';
+import { test, expect } from '@playwright/test';
+import { AdminLoginPage } from '../../src/pages/AdminLoginPage';
 
-describe('Shoptet Admin Login', () => {
+test.describe('Shoptet Admin Login', () => {
+    test('allows the Admin to access CMS', async ({ page }) => {
+        const admin = new AdminLoginPage(page);
 
-    
-    it('allows the Admin to access CMS', async ({ actor: admin }) => {
-        
-        await admin.attemptsTo(
-            AdminLogin.asAnAdmin(),
-            Ensure.that(
-                Page.current().url().pathname,
-                includes('/admin/'),
-        ));
+        await admin.openAdminLogin();
+        // TODO: replace with real admin credentials from env or secrets
+        await admin.login(process.env.SHOPTET_ADMIN_USER || 'admin', process.env.SHOPTET_ADMIN_PASS || 'password');
+
+        await expect(page).toHaveURL(/.*\/admin\/.*/);
     });
 });

@@ -2,7 +2,7 @@
  * setup-project.js
  * Run this script with: node setup-project.js
  * * Scaffolds: shoptet-qa-framework
- * Stack: Serenity/JS + Playwright + TypeScript + K6
+ * Stack: Playwright + TypeScript + K6
  * Environment: Optimized for WSL/Linux & CI
  */
 
@@ -32,7 +32,7 @@ const directories = [
 const packageJson = {
   "name": "shoptet-qa-framework",
   "version": "1.0.0",
-  "description": "Comprehensive QA Framework for Shoptet (UI, API, Performance) using Serenity/JS",
+  "description": "Comprehensive QA Framework for Shoptet (UI, API, Performance) using Playwright",
   "scripts": {
     "test": "playwright test",
     "test:ui": "playwright test --ui",
@@ -44,13 +44,6 @@ const packageJson = {
   },
   "devDependencies": {
     "@playwright/test": "^1.40.0",
-    "@serenity-js/assertions": "^3.15.0",
-    "@serenity-js/console-reporter": "^3.15.0",
-    "@serenity-js/core": "^3.15.0",
-    "@serenity-js/playwright": "^3.15.0",
-    "@serenity-js/rest": "^3.15.0",
-    "@serenity-js/serenity-bdd": "^3.15.0",
-    "@serenity-js/web": "^3.15.0",
     "@types/node": "^20.0.0",
     "@faker-js/faker": "^8.0.0",
     "typescript": "^5.0.0",
@@ -73,12 +66,11 @@ const tsConfig = {
   "exclude": ["node_modules"]
 };
 
-// Playwright Config optimized for Serenity/JS reporting
+// Playwright Config
 const playwrightConfig = `
 import { defineConfig, devices } from '@playwright/test';
-import type { SerenityOptions } from '@serenity-js/playwright';
 
-export default defineConfig<SerenityOptions>({
+export default defineConfig({
   testDir: './test/specs',
   timeout: 30000,
   fullyParallel: true,
@@ -88,12 +80,7 @@ export default defineConfig<SerenityOptions>({
   reporter: [
     ['line'],
     ['html', { open: 'never' }], // Native Playwright report
-    ['@serenity-js/playwright/test-reporter', {
-        crew: [
-            '@serenity-js/console-reporter',
-            ['@serenity-js/serenity-bdd', { specDirectory: './test/specs' }]
-        ]
-    }]
+    // Add custom reporters here if needed
   ],
   use: {
     actionTimeout: 0,
@@ -101,9 +88,6 @@ export default defineConfig<SerenityOptions>({
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     
-    // Serenity Actor Configuration
-    defaultActorName: 'Alice',
-    crew: [],
   },
   projects: [
     {
@@ -151,8 +135,8 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: always()
       with:
-        name: serenity-report
-        path: target/site/serenity
+        name: playwright-report
+        path: playwright-report
         retention-days: 30
 `;
 

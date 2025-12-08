@@ -1,18 +1,10 @@
-// src/tasks/ui/DismissCookies.ts
+// DismissCookies.ts (deprecated)
+// Cookie dismissal is handled in POM `BasePage.dismissCookiesIfVisible()`.
 
-import { Check, Task } from '@serenity-js/core';
-import { By, Click, isVisible, PageElement } from '@serenity-js/web';
-
-// Define the locators using PageElement
-const CookiesPopup = PageElement.located(By.css('[data-testid="cookiesPopup"]'))
-    .describedAs('cookies popup');
-const AcceptCookiesButton = PageElement.located(By.css('[data-testid="buttonCookiesAccept"]'))
-    .describedAs('accept cookies button');
-
-export const DismissCookies = () =>
-    Task.where(`#actor dismisses the cookie popup`,
-        Check.whether(CookiesPopup, isVisible())
-            .andIfSo(
-                Click.on(AcceptCookiesButton)
-            )
-    );
+export const DismissCookies = async (page: any) => {
+  const popup = page.locator('[data-testid="cookiesPopup"]');
+  const accept = page.locator('[data-testid="buttonCookiesAccept"]');
+  if (await popup.isVisible().catch(() => false)) {
+    await accept.click();
+  }
+};

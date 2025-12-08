@@ -1,20 +1,9 @@
-import { Actor, Cast, TakeNotes } from '@serenity-js/core';
-import { BrowseTheWebWithPlaywright } from '@serenity-js/playwright';
-import { CallAnApi } from '@serenity-js/rest';
-import { Browser } from '@playwright/test';
+// Actors.ts (deprecated)
+// The project has migrated from Serenity/JS to plain Playwright POM.
+// This file remains as a small compatibility stub to avoid type errors
+// in tools that might still import it. Prefer using Playwright fixtures
+// and the POM classes in `src/pages`.
 
-export class Actors implements Cast {
-    constructor(
-        private readonly browser: Browser,
-        private readonly options: { baseURL?: string }
-    ) {
-    }
-
-    prepare(actor: Actor): Actor {
-        return actor.whoCan(
-            BrowseTheWebWithPlaywright.using(this.browser, this.options),
-            CallAnApi.at(this.options.baseURL || 'https://755742.myshoptet.com'),
-            TakeNotes.usingAnEmptyNotepad()
-        );
-    }
+export class Actors {
+  // no-op stub
 }

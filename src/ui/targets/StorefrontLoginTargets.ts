@@ -1,16 +1,10 @@
-import { By, PageElement } from '@serenity-js/web';
+// StorefrontLoginTargets.ts (deprecated)
+// Use Playwright POMs and selectors in `src/pages` instead.
 
-export const StorefrontLoginTargets = {
-    // The specific desktop login button (avoids the mobile menu duplicate)
-    LoginLink: PageElement.located(By.css('.top-nav-button[data-testid="signin"]'))
-        .describedAs('Storefront login link'),
-
-    // The container of the popup (Best for Visual Snapshot)
-    LoginModal: PageElement.located(By.id('customerLogin'))
-        .describedAs('Login popup modal'),
-
-    // Form elements (Good for future functional tests)
-    EmailField: PageElement.located(By.css('[data-testid="inputEmail"]')),
-    PasswordField: PageElement.located(By.css('[data-testid="inputPassword"]')),
-    SubmitButton: PageElement.located(By.css('[data-testid="buttonSubmit"]'))
+export const StorefrontLoginSelectors = {
+  LoginLink: '.top-nav-button[data-testid="signin"]',
+  LoginModal: '#customerLogin',
+  EmailField: '[data-testid="inputEmail"]',
+  PasswordField: '[data-testid="inputPassword"]',
+  SubmitButton: '[data-testid="buttonSubmit"]',
 };

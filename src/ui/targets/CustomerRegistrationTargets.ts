@@ -1,27 +1,13 @@
-import { By, PageElement } from '@serenity-js/web';
+// CustomerRegistrationTargets.ts (deprecated)
+// Use the Playwright POM in `src/pages/CustomerRegistrationPage.ts` instead.
 
-export const CustomerRegistrationTargets = {
-    // Navigation Targets (Used by CustomerRegistration task)
-    LoginLink: PageElement.located(By.css('.top-nav-button[data-testid="signin"]:visible'))
-        .describedAs('Storefront login link'),
-    RegistrationLink: PageElement.located(By.css('[data-testid="signup"]'))
-        .describedAs('New registration link'),
-
-    // Registration Form Inputs (Used by CustomerRegistration task)
-    EmailField: PageElement.located(By.id('email'))
-        .describedAs('Registration email field'),
-    PasswordField: PageElement.located(By.id('password'))
-        .describedAs('Registration password field'),
-    PasswordAgainField: PageElement.located(By.id('passwordAgain'))
-        .describedAs('Password confirmation field'),
-    SubmitButton: PageElement.located(By.css('input[type="submit"][value="Registrovat"]'))
-        .describedAs('Registration submit button'),
-    
-    // Stability & Popup Targets
-    AllowCookiesButton: PageElement.located(By.css('[data-testid="buttonCookiesAccept"]'))
-        .describedAs('Allow all cookies button'),
-    
-    // Success Assertion Target
-    LogoutLink: PageElement.located(By.css('[data-testid="buttonSignout"]'))
-        .describedAs('Logout link (Success Indicator)'),
+export const CustomerRegistrationSelectors = {
+  LoginLink: '.top-nav-button[data-testid="signin"]',
+  RegistrationLink: '[data-testid="signup"]',
+  EmailField: '#email',
+  PasswordField: '#password',
+  PasswordAgainField: '#passwordAgain',
+  SubmitButton: 'input[type="submit"][value="Registrovat"]',
+  AllowCookiesButton: '[data-testid="buttonCookiesAccept"]',
+  LogoutLink: '[data-testid="buttonSignout"]',
 };

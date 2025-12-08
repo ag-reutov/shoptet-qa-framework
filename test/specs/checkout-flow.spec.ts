@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { AddToCart } from '../../src/tasks/ui/AddToCart';
+import { AddToCart } from '../../src/helpers/AddToCart';
 import { faker } from '@faker-js/faker';
 
 
@@ -35,11 +35,10 @@ test.describe('Critical User Path: Checkout', () => {
         const firstShipping = page.locator('[data-testid="shippingMethod"]').first();
         await firstShipping.click({ force: true });
 
-
-        // --- Handle Pickup Point Selection ---
-        const zipInput = page.locator('[name="zipCode"]'); 
-        await expect(zipInput).toBeVisible(); // Ensure modal is open
-        await zipInput.fill('10000');
+        // Wait until the modal is fully open
+        await expect(page.locator('.modal-selector-for-pickup')).toBeVisible({ timeout: 5000 }); // Replace .modal-selector-for-pickup with actual class or attribute
+        const zipInput = page.locator('[name="zipCode"]');
+        await expect(zipInput).toBeVisible();
 
         // --- Click Search
         const searchBtn = page.locator('[data-testid="searchDeliveryPoint"]');

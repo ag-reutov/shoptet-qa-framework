@@ -1,16 +1,7 @@
-import { Task } from '@serenity-js/core';
-import { Click, Enter, Navigate } from '@serenity-js/web';
-import { CmsLoginTargets } from '../../ui/targets/AdminLoginTargets';
+// AdminLogin.ts (deprecated)
+// Replaced by `src/pages/AdminLoginPage.ts` which uses Playwright POM.
 
-const AdminCredentials = {
-    email: process.env.ADMIN_EMAIL || '',
-    pass: process.env.ADMIN_PASSWORD || '',
-};
-
-export const AdminLogin = {
-    // We renamed this to 'asAnAdmin' per your request
-    asAnAdmin: () =>
-        Task.where('#actor logs into the CMS as an Admin',
+export const AdminLogin = {} as any;
             Navigate.to('/admin/login/'),
             
             Enter.theValue(AdminCredentials.email)

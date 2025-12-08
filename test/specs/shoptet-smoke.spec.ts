@@ -1,18 +1,8 @@
-import { describe, it } from '@serenity-js/playwright-test';
-import { Navigate, Page } from '@serenity-js/web';
-import { Ensure, equals } from '@serenity-js/assertions';
+import { test, expect } from '@playwright/test';
 
-describe('Shoptet Website', () => {
-
-    it('allows Alice to visit the home page', async ({ actor }) => {
-        await actor.attemptsTo(
-            Navigate.to('/'), 
-            
-            
-            Ensure.that(
-                Page.current().title(), 
-                equals('Vítejte v našem obchodě - Můj e-shop') 
-            ),
-        );
+test.describe('Shoptet Website', () => {
+    test('allows visiting the home page', async ({ page }) => {
+        await page.goto('/', { waitUntil: 'networkidle' });
+        await expect(page).toHaveTitle('Vítejte v našem obchodě - Můj e-shop');
     });
 });

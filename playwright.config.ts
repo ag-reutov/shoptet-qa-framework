@@ -1,5 +1,4 @@
 import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test';
-import { Actors } from './src/actors/Actors'; 
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -31,13 +30,7 @@ export default defineConfig<any>({
     },
 
     
-    actors: async ({ browser, contextOptions }: { browser: any, contextOptions: any }, use: any) => {
-        const actorsInstance = new Actors(browser, contextOptions);
-        await use(actorsInstance);
-    },
-    
-    defaultActorName: 'Alice',
-    crew: [],
+    // standard Playwright fixtures used by POM-based tests
   },
 
   projects: [

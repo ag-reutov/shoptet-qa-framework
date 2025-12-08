@@ -1,9 +1,4 @@
-import { Question } from '@serenity-js/core';
-import { LastResponse } from '@serenity-js/rest';
+// Response.ts (deprecated)
+// Replaced by Playwright `request`-based checks in `test/specs/api-health.spec.ts`.
 
-export const Response = {
-    status: () =>
-        Question.about('the response status', actor =>
-            LastResponse.status().answeredBy(actor)
-        )
-};
+export const Response = {} as any;
