@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  tests:
+    build: .
+    environment:
+      - BASE_URL=https://755742.myshoptet.com
+      - CI=true
+    volumes:
+      - ./playwright-report:/app/playwright-report
+      - ./allure-results:/app/allure-results
+      - ./test-results:/app/test-results
+    command: npx playwright test

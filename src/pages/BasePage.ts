@@ -1,21 +1,31 @@
-import type { Page } from '@playwright/test';
+import { Page, Locator, expect } from '@playwright/test';
 
 export class BasePage {
-  readonly page: Page;
+  protected readonly page: Page;
 
   constructor(page: Page) {
     this.page = page;
   }
 
-  async goto(path: string) {
+  async open(path: string = '/') {
     await this.page.goto(path, { waitUntil: 'networkidle' });
   }
 
-  async dismissCookiesIfVisible() {
-    const popup = this.page.locator('[data-testid="cookiesPopup"]');
-    const accept = this.page.locator('[data-testid="buttonCookiesAccept"]');
-    if (await popup.isVisible().catch(() => false)) {
-      await accept.click();
+  async acceptCookies() {
+    const button: Locator = this.page.locator(
+      'button:has-text("Souhlasím"), button:has-text("Přijmout cookies"), [data-testid="buttonCookiesAccept"]',
+    );
+    if (
+      await button
+        .first()
+        .isVisible({ timeout: 3000 })
+        .catch(() => false)
+    ) {
+      await button.first().click();
     }
+  }
+
+  async expectTitleContains(text: string) {
+    await expect(this.page).toHaveTitle(new RegExp(text, 'i'));
   }
 }
