@@ -8,7 +8,7 @@ export const CustomerRegistrationTargets = {
         .describedAs('New registration link'),
 
     // Registration Form Inputs (Used by CustomerRegistration task)
-    EmailField: PageElement.located(By.css('[data-testid="inputEmail"]'))
+    EmailField: PageElement.located(By.id('email'))
         .describedAs('Registration email field'),
     PasswordField: PageElement.located(By.id('password'))
         .describedAs('Registration password field'),

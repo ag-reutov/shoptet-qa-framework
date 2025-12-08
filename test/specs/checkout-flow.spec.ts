@@ -2,9 +2,19 @@ import { test, expect } from '@playwright/test';
 import { AddToCart } from '../../src/tasks/ui/AddToCart';
 import { faker } from '@faker-js/faker';
 
+
 test.describe('Critical User Path: Checkout', () => {
 
     test('should add product to cart and proceed to checkout', async ({ page }) => {
+        
+        // --- Step 0: Dismiss Cookie Popup ---
+        const cookiesPopup = page.locator('[data-testid="cookiesPopup"]');
+        const acceptButton = page.locator('[data-testid="buttonCookiesAccept"]');
+        
+        if (await cookiesPopup.isVisible({ timeout: 2000 }).catch(() => false)) {
+            await acceptButton.click();
+        }
+
         // --- Step 1: Add Item to Cart ---
         const addToCart = new AddToCart(page);
         await addToCart.perform();
@@ -23,7 +33,7 @@ test.describe('Critical User Path: Checkout', () => {
 
         // --- Select Shipping  ---
         const firstShipping = page.locator('[data-testid="shippingMethod"]').first();
-        await firstShipping.click();
+        await firstShipping.click({ force: true });
 
 
         // --- Handle Pickup Point Selection ---

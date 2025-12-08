@@ -1,8 +1,8 @@
-import { describe, it, beforeEach } from '@serenity-js/playwright-test';
-import { Click, isVisible } from '@serenity-js/web';
-import { CustomerRegistrationTargets } from '../../src/ui/targets/CustomerRegistrationTargets';
-import { Check } from '@serenity-js/core';
+import { describe, it, beforeEach, test } from '@serenity-js/playwright-test';
+import { DismissCookies } from '../../src/tasks/ui/DismissCookies';
 import { expect } from '@playwright/test';
+
+test.skip(!!process.env.CI, 'Skipping visual regression in CI due to Linux font rendering differences');
 
 describe('Visual Regression', () => {
 
@@ -16,9 +16,9 @@ describe('Visual Regression', () => {
             waitUntil: 'networkidle' 
         });
 
+        // Dismiss cookies using the dedicated task
         await actor.attemptsTo(
-            Check.whether(CustomerRegistrationTargets.AllowCookiesButton, isVisible())
-                .andIfSo(Click.on(CustomerRegistrationTargets.AllowCookiesButton)),
+            DismissCookies()
         );
 
         // Use specific locator for registration form's email field
