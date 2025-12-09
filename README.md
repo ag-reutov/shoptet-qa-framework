@@ -5,7 +5,7 @@ A modern, Playwright-based test automation framework for Shoptet E-commerce plat
 ## 🚀 Features
 
 - **POM Architecture:** Tests use Page Objects under `src/pages` and Playwright's test runner for clarity and maintainability.
-- **Critical Path Testing:** End-to-End coverage of the "Guest Checkout" flow (Add to Cart → Checkout → Order Confirmation).
+- **Critical Path Testing:** End-to-End coverage for Guest and Returning Customer Checkout flow (Add to Cart → Checkout → Order Confirmation).
 - **API Testing:** Built-in API health checks with contract validation and performance timing.
 - **CI/CD:** Automated pipelines for **GitHub Actions** and **Docker** support.
 - **Dynamic Data:** Uses `Faker` for realistic test data (Czech phone numbers, addresses, emails).
