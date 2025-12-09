@@ -1,15 +1,14 @@
 # Shoptet QA Automation Framework
 
-A modern, Playwright-based test automation framework for E-commerce using the Page Object Model (POM) and TypeScript.
+A modern, Playwright-based test automation framework for Shoptet E-commerce platform using the Page Object Model (POM) and TypeScript.
 
 ## 🚀 Features
 
 - **POM Architecture:** Tests use Page Objects under `src/pages` and Playwright's test runner for clarity and maintainability.
-- **Critical Path Testing:** End-to-End coverage of the "Guest Checkout" flow (Add to Cart → Shipping → Payment → Order).
-- **Visual Regression:** Pixel-perfect snapshot testing (skipped in CI to avoid OS font mismatches).
-- **API Testing:** Built-in API health checks and performance timing.
+- **Critical Path Testing:** End-to-End coverage of the "Guest Checkout" flow (Add to Cart → Checkout → Order Confirmation).
+- **API Testing:** Built-in API health checks with contract validation and performance timing.
 - **CI/CD:** Automated pipelines for **GitHub Actions** and **Docker** support.
-- **Dynamic Data:** Uses `Faker` for unique user data generation.
+- **Dynamic Data:** Uses `Faker` for realistic test data (Czech phone numbers, addresses, emails).
 - **Reporting:** Playwright HTML + Allure reporters with traces and screenshots on failures.
 - **Quality Gates:** ESLint + Prettier + Husky + lint-staged for clean commits.
 - **Data Factories:** Typed Faker-backed builders for customers/credentials.
@@ -102,21 +101,59 @@ docker run shoptet-qa
 ## 📁 Project Structure
 
 ```
-src/
-  pages/           # Page Object Models
-  utils/           # Utilities (factories, schemas, helpers)
-test/
-  specs/           # Test specifications
-  snapshots/       # Visual regression snapshots
-.github/
-  workflows/       # GitHub Actions CI/CD
+shoptet-qa-framework/
+├── src/
+│   ├── pages/                    # Page Object Models
+│   │   ├── BasePage.ts           # Base page with common methods (open, acceptCookies)
+│   │   ├── HomePage.ts           # Homepage actions (add to cart, etc.)
+│   │   ├── CartPage.ts           # Cart page interactions
+│   │   ├── CheckoutStep1Page.ts  # Checkout step 1 (delivery method selection)
+│   │   ├── CheckoutStep2Page.ts  # Checkout step 2 (contact form)
+│   │   └── OrderConfirmationPage.ts  # Order confirmation page
+│   └── utils/                    # Utilities (factories, schemas, helpers)
+│       ├── dataFactory.ts        # Faker-based test data generators (Customer, Credentials)
+│       └── apiSchema.ts          # Zod schemas for API contract validation
+├── test/
+│   └── specs/                    # Test specifications
+│       ├── smoke.spec.ts         # Basic smoke tests (homepage, add to cart)
+│       ├── checkout-flow.spec.ts # E2E guest checkout flow (PASSING ✅)
+│       ├── api-health.spec.ts    # API health checks and contract tests
+│       └── debug-checkout.spec.ts # Debug helpers for checkout troubleshooting
+├── .github/
+│   └── workflows/                # GitHub Actions CI/CD (TODO: add workflows)
+├── allure-results/               # Allure report data
+├── test-results/                 # Playwright test artifacts (screenshots, videos, traces)
+├── playwright-report/            # Playwright HTML report output
+├── playwright.config.ts          # Playwright configuration
+├── tsconfig.json                 # TypeScript configuration
+├── package.json                  # Dependencies and scripts
+├── Dockerfile                    # Docker container for CI/CD
+├── docker-compose.yml            # Docker compose setup
+└── README.md                     # This file
 ```
 
 ## 🔧 Configuration
 
 - **`playwright.config.ts`** — Playwright test configuration with baseURL, retries, reporters, and browser projects.
-- **`.env`** — Environment variables (copy from `.env.example` if available).
+- **`.env`** — Environment variables (currently using default Shoptet demo shop URL).
 - **`tsconfig.json`** — TypeScript configuration with strict mode enabled.
+
+## 🧪 Test Coverage
+
+### Current Tests
+
+| Test Suite               | Status | Description                                              |
+| ------------------------ | ------ | -------------------------------------------------------- |
+| `smoke.spec.ts`          | ✅     | Homepage load, basic navigation, add to cart             |
+| `checkout-flow.spec.ts`  | ✅     | Complete guest checkout (cart → personal pickup → order) |
+| `api-health.spec.ts`     | ✅     | API health checks, contract validation with Zod          |
+| `debug-checkout.spec.ts` | 🔧     | Debug utility for troubleshooting checkout issues        |
+
+### Test Data
+
+- **Czech Phone Numbers:** Generated as `+420 705 XXX XXX` (valid Shoptet format)
+- **Addresses:** Faker generates realistic street, city, ZIP data
+- **Emails:** Unique emails per test run via Faker
 
 ## 📝 Writing Tests
 
@@ -165,12 +202,19 @@ GitHub Actions workflows:
 - **Test:** Runs cross-browser tests (chromium, firefox, webkit) and uploads reports.
 - **Artifacts:** Playwright reports and Allure results are retained for 30 days.
 
+**TODO:** Add GitHub Actions workflow files to `.github/workflows/`.
+
+## 🐛 Known Issues & TODOs
+
+See [PROJECT_MAP.md](./PROJECT_MAP.md) for detailed project status and roadmap.
+
 ## 📚 Resources
 
 - [Playwright Documentation](https://playwright.dev)
 - [TypeScript Handbook](https://www.typescriptlang.org/docs/)
 - [Faker.js Docs](https://fakerjs.dev)
 - [Zod Documentation](https://zod.dev)
+- [Shoptet Developer Docs](https://developers.shoptet.cz/)
 
 ## 📄 License
 
@@ -178,4 +222,5 @@ ISC
 
 ---
 
-**Target URL:** https://755742.myshoptet.com
+**Target URL:** https://755742.myshoptet.com  
+**Branch:** `recreate-playwright` (active development)
