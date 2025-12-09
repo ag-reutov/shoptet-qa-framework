@@ -4,6 +4,8 @@ import { BasePage } from './BasePage';
 export class HomePage extends BasePage {
   readonly addToCartButtons: Locator;
   readonly cartLink: Locator;
+  readonly signInLink: Locator;
+  readonly popupSignupLink: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -11,6 +13,8 @@ export class HomePage extends BasePage {
     this.addToCartButtons = page.locator('form button:has-text("Do košíku")');
     // Cart link in header
     this.cartLink = page.getByTestId('headerCart');
+    this.signInLink = page.getByTestId('signin').first();
+    this.popupSignupLink = page.locator('.popup-widget-inner [data-testid="signup"]');
   }
 
   async addFirstProductToCart() {
@@ -20,5 +24,12 @@ export class HomePage extends BasePage {
     await this.page.waitForTimeout(500);
     // Verify cart is now visible/has content
     await expect(this.cartLink).toBeVisible();
+  }
+
+  async goToRegistration() {
+    await this.signInLink.click();
+    await expect(this.popupSignupLink).toBeVisible();
+    await this.popupSignupLink.click();
+    await this.page.waitForURL(/\/registrace/);
   }
 }

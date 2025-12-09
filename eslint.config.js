@@ -29,6 +29,7 @@ module.exports = [
       'playwright/no-skipped-test': 'warn',
       'playwright/no-conditional-in-test': 'warn',
       'playwright/expect-expect': 'off',
+      'playwright/no-wait-for-timeout': 'warn',
     },
   },
   {
