@@ -37,6 +37,11 @@ export default defineConfig({
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+    {
+      name: 'visual-regression',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: '**/visual-regression.spec.ts',
+    },
   ],
   snapshotDir: './test/snapshots',
 });
