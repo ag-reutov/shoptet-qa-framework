@@ -16,14 +16,20 @@ This document provides a comprehensive map of the Shoptet QA Framework, includin
 
 #### Page Objects (`src/pages/`)
 
-| File                       | Status  | Description                   | Notes                                     |
-| -------------------------- | ------- | ----------------------------- | ----------------------------------------- |
-| `BasePage.ts`              | ✅ Done | Base page with common methods | Includes `open()`, `acceptCookies()`      |
-| `HomePage.ts`              | ✅ Done | Homepage interactions         | Add to cart, cookie acceptance            |
-| `CartPage.ts`              | ✅ Done | Shopping cart page            | Cart validation, checkout navigation      |
-| `CheckoutStep1Page.ts`     | ✅ Done | Checkout delivery selection   | Supports "OSOBNÍ ODBĚR" (personal pickup) |
-| `CheckoutStep2Page.ts`     | ✅ Done | Checkout contact form         | Fixed email selector (`input#email`)      |
-| `OrderConfirmationPage.ts` | ✅ Done | Order confirmation            | Basic confirmation check                  |
+| File                          | Status  | Description                   | Last Updated | Notes                                     |
+| ----------------------------- | ------- | ----------------------------- | ------------ | ----------------------------------------- |
+| `BasePage.ts`                 | ✅ Done | Base page with common methods | Dec 2024     | Includes `open()`, `acceptCookies()`      |
+| `HomePage.ts`                 | ✅ Done | Homepage interactions         | Dec 9, 2025  | Add to cart, registration entry, search   |
+| `CartPage.ts`                 | ✅ Done | Shopping cart page            | Dec 2024     | Cart validation, checkout navigation      |
+| `CheckoutStep1Page.ts`        | ✅ Done | Checkout delivery selection   | Dec 2024     | Supports "OSOBNÍ ODBĚR" (personal pickup) |
+| `CheckoutStep2Page.ts`        | ✅ Done | Checkout contact form         | Dec 2024     | Fixed email selector (`input#email`)      |
+| `OrderConfirmationPage.ts`    | ✅ Done | Order confirmation            | Dec 2024     | Basic confirmation check                  |
+| `CustomerRegistrationPage.ts` | ✅ Done | New customer registration     | Dec 9, 2025  | Scoped to formRegistration                |
+| `CustomerSettingsPage.ts`     | ✅ Done | Contact details form          | Dec 9, 2025  | Name, phone, address, city, zip           |
+| `CustomerLoginPage.ts`        | ✅ Done | Customer login form           | Dec 9, 2025  | Scoped to formLogin                       |
+| `SearchResultsPage.ts`        | ✅ Done | Search results page           | Dec 9, 2025  | Basic structure, search/filter support    |
+| `AdminLoginPage.ts`           | ✅ Done | Admin authentication          | Dec 9, 2025  | Flexible selectors for login inputs       |
+| `AdminProductsPage.ts`        | ✅ Done | Admin product CRUD            | Dec 9, 2025  | Add, filter, delete product operations    |
 
 #### Utilities (`src/utils/`)
 
@@ -34,20 +40,33 @@ This document provides a comprehensive map of the Shoptet QA Framework, includin
 
 ### Test Suites (`test/specs/`)
 
-| File                     | Status        | Coverage              | Notes                           |
-| ------------------------ | ------------- | --------------------- | ------------------------------- |
-| `smoke.spec.ts`          | ✅ Passing    | Homepage, add to cart | Basic smoke tests               |
-| `checkout-flow.spec.ts`  | ✅ Passing    | E2E guest checkout    | Personal pickup delivery method |
-| `api-health.spec.ts`     | ✅ Passing    | API health, contracts | Uses Zod for validation         |
-| `debug-checkout.spec.ts` | 🔧 Debug Only | Checkout debugging    | Helper for troubleshooting      |
+| File                               | Status        | Pass   | Coverage              | Last Updated | Notes                                       |
+| ---------------------------------- | ------------- | ------ | --------------------- | ------------ | ------------------------------------------- |
+| `smoke.spec.ts`                    | ✅ Passing    | 2      | Homepage, add to cart | Dec 2024     | Basic smoke tests                           |
+| `checkout-flow.spec.ts`            | ✅ Passing    | 1      | E2E guest checkout    | Dec 2024     | Personal pickup delivery method             |
+| `api-health.spec.ts`               | ✅ Passing    | 2      | API health, contracts | Dec 2024     | Uses Zod for validation                     |
+| `debug-checkout.spec.ts`           | 🔧 Debug Only | -      | Checkout debugging    | Dec 2024     | Helper for troubleshooting                  |
+| `customer-registration.spec.ts`    | ✅ Passing    | 1      | New user registration | Dec 9, 2025  | Registration + settings form                |
+| `search-filter.spec.ts`            | ✅ Passing    | 2      | Search, sort, filter  | Dec 9, 2025  | Product search and sort by price/name       |
+| `returning-customer-flow.spec.ts`  | ✅ Passing    | 1      | Login + add to cart   | Dec 9, 2025  | Existing customer checkout flow             |
+| `admin-product-management.spec.ts` | ✅ Passing    | 1      | Admin CRUD            | Dec 9, 2025  | Add, verify, delete product                 |
+| `visual-regression.spec.ts`        | 📸 Baselines  | 5      | Visual regression     | Dec 9, 2025  | Homepage, cart, checkout step 1 & 2         |
+| **TOTAL**                          | **12 Pass**   | **12** | **-**                 | **-**        | **5 additional visual regression captures** |
 
 ---
 
 ## ✅ Recent Achievements
 
-### December 8-9, 2025
+### December 8-9, 2025 - Priority 1 Complete ✅
 
-- ✅ **Fixed checkout flow test** - Complete E2E guest checkout now passing
+- ✅ **Customer Registration Test** - New user signup with contact form
+- ✅ **Customer Search & Filter Test** - Product search, sort by price/name with URL assertions
+- ✅ **Returning Customer Test** - Login and cart navigation
+- ✅ **Admin Product Management Test** - Add product → verify on storefront → filter → delete
+- ✅ **Page Objects** - Created 6 new page objects (CustomerRegistration, CustomerSettings, CustomerLogin, AdminLogin, AdminProducts, SearchResults)
+- ✅ **Test Results** - 12 tests passing in ~2 minutes, 5 visual regression baselines captured
+- ✅ **Code Quality** - All tests passing ESLint, Prettier, TypeScript strict mode
+- ✅ **Documentation** - Updated README.md and TEST_COVERAGE_PLAN.md with completed work
 - ✅ **Czech phone validation** - Generates valid `+420 705 XXX XXX` format
 - ✅ **Email selector fix** - Resolved dual email input conflict in `CheckoutStep2Page`
 - ✅ **Simplified delivery selection** - Uses "OSOBNÍ ODBĚR" to avoid modal complexity
@@ -57,86 +76,109 @@ This document provides a comprehensive map of the Shoptet QA Framework, includin
 
 ## 🚧 TODO List
 
-### High Priority
+### ✅ Priority 1 - COMPLETE
 
-- [ ] **Add GitHub Actions CI/CD workflows**
-  - Create `.github/workflows/test.yml` for automated test runs
-  - Add lint workflow for PR checks
-  - Configure artifact uploads for test reports
-  - Set up parallel browser testing
+- [x] Customer registration flow test
+- [x] Customer returning flow test
+- [x] Product search & filter test
+- [x] Admin product management test (add, verify, delete)
+- [x] Page objects for all above flows
+- [x] Code quality checks (ESLint, TypeScript, Prettier)
+- [x] Test documentation (README, TEST_COVERAGE_PLAN)
 
-- [ ] **Expand test coverage**
-  - [ ] Add logged-in user checkout flow
-  - [ ] Test multiple delivery methods (PPL, GLS, DPD, etc.)
-  - [ ] Test payment method selection
-  - [ ] Add product search tests
-  - [ ] Test product filtering and sorting
+### 📋 Priority 2 - Upcoming
 
-- [ ] **Enhance order confirmation validation**
-  - [ ] Check for order number display
-  - [ ] Validate order summary details
-  - [ ] Verify email confirmation sent message
+#### Performance Testing
 
-### Medium Priority
+- [ ] **k6 Load Testing**
+  - Setup k6 for checkout flow performance testing
+  - Define response time budgets (target: <2s for checkout)
+  - Test concurrent user scenarios (10, 50, 100 users)
+  - Memory and CPU profiling
 
-- [ ] **Improve page objects**
-  - [ ] Add explicit waits and better error messages
-  - [ ] Add retry logic for flaky selectors
-  - [ ] Extract common form-filling patterns
-  - [ ] Add validation methods to each page
+#### Negative Test Scenarios
 
-- [ ] **Add visual regression testing**
-  - [ ] Set up Playwright visual comparison
-  - [ ] Create baseline screenshots
-  - [ ] Configure CI to handle screenshot diffs
+- [ ] **Invalid Inputs**
+  - Invalid email format in registration
+  - Weak/invalid passwords
+  - Empty required fields
+  - SQL injection attempts in search
+- [ ] **Business Logic Errors**
+  - Out of stock product handling
+  - Invalid price inputs (negative, non-numeric)
+  - Expired product/category deletion
+  - Checkout with empty cart
 
-- [ ] **Performance testing**
-  - [ ] Add k6 performance test scripts
-  - [ ] Measure checkout flow performance
-  - [ ] Set performance budgets
+#### Mobile & Responsive Testing
 
-- [ ] **Test data management**
-  - [ ] Add more realistic Czech addresses
-  - [ ] Support multiple phone prefixes (703, 604, 721, etc.)
-  - [ ] Add company data generator for B2B flows
+- [ ] Mobile device viewports (iPhone, Android)
+- [ ] Touch event handling
+- [ ] Responsive design validation
+- [ ] Mobile checkout flow
 
-### Low Priority
+#### Accessibility (a11y) Testing
 
-- [ ] **Documentation improvements**
-  - [ ] Add architecture decision records (ADRs)
-  - [ ] Create troubleshooting guide
-  - [ ] Document common test patterns
-  - [ ] Add API documentation
+- [ ] WCAG 2.1 AA compliance
+- [ ] Keyboard navigation
+- [ ] Screen reader compatibility
+- [ ] Color contrast validation
 
-- [ ] **Code quality**
-  - [ ] Increase TypeScript strictness
-  - [ ] Add unit tests for utilities
-  - [ ] Improve error handling
-  - [ ] Add custom Playwright matchers
+### 📚 Priority 3 - Nice to Have
 
-- [ ] **Developer experience**
-  - [ ] Add VS Code launch configurations
-  - [ ] Create test templates/snippets
-  - [ ] Add pre-push hooks for test validation
-  - [ ] Docker optimization for faster builds
+#### Documentation
+
+- [ ] Architecture Decision Records (ADRs)
+- [ ] Troubleshooting guide
+- [ ] Test pattern library
+- [ ] API documentation
+- [ ] Contributing guide
+
+#### Code Quality
+
+- [ ] Unit tests for utilities
+- [ ] Custom Playwright matchers
+- [ ] Enhanced error messages
+- [ ] Type safety improvements
+
+#### Developer Experience
+
+- [ ] VS Code launch configurations
+- [ ] Test templates
+- [ ] Pre-push hooks
+- [ ] Docker optimization
 
 ---
 
-## 🐛 Known Issues
+## 🐛 Known Issues & Workarounds
 
-### Active Issues
+### Resolved Issues ✅
 
-1. **Delivery point modal complexity** _(Workaround implemented)_
-   - **Issue:** Selecting delivery points with modals (PPL, GLS) requires ZIP search
-   - **Current Solution:** Use "OSOBNÍ ODBĚR" (personal pickup) to avoid modals
+1. ✅ **Dual email inputs in checkout** - Fixed with specific input selectors
+2. ✅ **Strict mode violations** - Resolved with `.first()` and form scoping
+3. ✅ **Product limit (free tier)** - Workaround: tests delete created products
+4. ✅ **Hide-on-mouseout elements** - Fixed with `.force: true` and scroll
+
+### Active Issues & Workarounds
+
+1. **Delivery point modals**
+   - **Issue:** PPL/GLS delivery methods require ZIP code search in modal
+   - **Workaround:** Use "OSOBNÍ ODBĚR" (personal pickup) for tests
+   - **Impact:** Limited delivery method coverage
+   - **Future Fix:** Implement ZIP search modal interaction
+
+2. **Visual regression baselines**
+   - **Issue:** Platform changes break visual snapshots frequently
+   - **Workaround:** Store baselines, update when intentional changes occur
+   - **Impact:** Need to rebuild baselines occasionally
+   - **Future Fix:** Use fuzzy matching or region-based comparisons
    - **Long-term Fix:** Implement robust modal interaction with retry logic
 
-2. **Order confirmation text varies** _(Minor)_
+3. **Order confirmation text varies** _(Minor)_
    - **Issue:** "Objednávka odeslána" text may not always appear
    - **Current Solution:** Basic page load check without text validation
    - **Long-term Fix:** Add multiple confirmation indicators
 
-3. **Husky deprecation warning** _(Low priority)_
+4. **Husky deprecation warning** _(Low priority)_
    - **Issue:** Husky pre-commit hook shows deprecation message
    - **Solution:** Update `.husky/pre-commit` to remove deprecated lines
 
@@ -150,20 +192,38 @@ This document provides a comprehensive map of the Shoptet QA Framework, includin
 
 ## 📈 Test Metrics
 
-### Current Stats
+### Current Stats (December 9, 2025)
 
-- **Total Test Specs:** 4
-- **Total Test Cases:** ~10
-- **Pass Rate:** 100% (excluding debug tests)
-- **Average Runtime:** ~12s per test
-- **Browsers Tested:** Chromium (primary)
+| Metric           | Value                     |
+| ---------------- | ------------------------- |
+| Total Test Specs | 9                         |
+| Total Test Cases | 12 (passing) + 5 (visual) |
+| Pass Rate        | 100% ✅                   |
+| Test Duration    | ~2 minutes (full suite)   |
+| Average Per Test | ~12 seconds               |
+| Browsers Tested  | Chromium (primary)        |
+| Page Objects     | 11                        |
+| Source Files     | ~3,500 LoC                |
+| Git Commits      | 2 (Priority 1 work)       |
+
+### Coverage Summary
+
+| Category          | Coverage | Status |
+| ----------------- | -------- | ------ |
+| Customer Flows    | 3/3      | ✅     |
+| Admin Flows       | 1/1      | ✅     |
+| Core E2E          | 1/1      | ✅     |
+| API Health        | 1/1      | ✅     |
+| Visual Regression | 5        | 📸     |
 
 ### Coverage Goals
 
-- [ ] 80% critical path coverage
-- [ ] All major user flows tested
-- [ ] API contract tests for key endpoints
-- [ ] Cross-browser validation (Chrome, Firefox, Safari)
+- [x] 100% Priority 1 customer flows (registration, returning, search/filter)
+- [x] 100% Priority 1 admin flows (product CRUD)
+- [ ] 80% critical path coverage (extended scope)
+- [ ] All major user flows tested (Priority 2)
+- [ ] API contract tests for key endpoints (in progress)
+- [ ] Cross-browser validation (Chrome, Firefox, Safari) - Priority 2
 
 ---
 
@@ -208,26 +268,39 @@ git commit -m "feat: description"
 
 ## 🎯 Success Criteria
 
-### Definition of Done for Framework
+### ✅ Completed - Priority 1 Framework
 
 - [x] Page Object Model implemented
 - [x] E2E checkout flow passing
 - [x] API tests with contract validation
-- [ ] CI/CD pipeline operational
-- [ ] Cross-browser testing enabled
-- [ ] Visual regression suite
-- [ ] Performance baseline established
+- [x] Customer registration flow
+- [x] Customer search & filter flow
+- [x] Returning customer login flow
+- [x] Admin product management flow
+- [x] Page objects for all flows (11 total)
+- [x] Code quality checks (ESLint, TypeScript, Prettier)
+- [x] Test documentation updated
+
+### 📋 Priority 2 Goals (Upcoming)
+
+- [ ] CI/CD pipeline operational (GitHub Actions)
+- [ ] Cross-browser testing enabled (Firefox, Safari)
+- [ ] Visual regression suite with diff detection
+- [ ] Performance baseline established (k6)
 - [ ] 80%+ critical path coverage
+- [ ] Negative test scenarios
+- [ ] Mobile/responsive testing
 
 ### Definition of Done for Individual Tests
 
 - [x] Test follows POM pattern
 - [x] Uses TypeScript with proper typing
-- [x] Passes linting checks
+- [x] Passes linting checks (ESLint, Prettier)
 - [x] Includes assertions and validations
+- [x] Runs in <30s
 - [ ] Has retry logic for flaky operations
 - [ ] Documents edge cases
-- [ ] Runs in <30s
+- [ ] Includes accessibility checks
 
 ---
 
