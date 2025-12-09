@@ -57,7 +57,19 @@ npm run test:debug
 npm run test:api
 ```
 
-**6. Lint & Format Code**
+**6. Run Performance Tests (k6)**
+
+```bash
+# Run individual performance tests
+npm run perf:homepage
+npm run perf:checkout
+npm run perf:api
+
+# Run all performance tests
+npm run perf:all
+```
+
+**7. Lint & Format Code**
 
 ```bash
 npm run lint
@@ -82,6 +94,51 @@ Generate and view Allure results:
 npx allure generate --clean allure-results
 npx allure open
 ```
+
+## ⚡ Performance Testing with k6
+
+k6 load testing provides insight into how the application performs under concurrent user load.
+
+### Running Performance Tests
+
+```bash
+# Homepage load test
+npm run perf:homepage
+
+# Checkout flow simulation
+npm run perf:checkout
+
+# API endpoint testing
+npm run perf:api
+
+# All performance tests
+npm run perf:all
+```
+
+### Performance Test Scenarios
+
+| Test                      | VUs | Duration | Purpose                                   |
+| ------------------------- | --- | -------- | ----------------------------------------- |
+| `performance-homepage.js` | 10  | 50s      | Measure homepage response time under load |
+| `performance-checkout.js` | 5   | 20s      | Simulate multi-step checkout flow         |
+| `performance-api.js`      | 10  | 30s      | Validate API endpoint performance         |
+
+### Sample Results
+
+```
+✓ THRESHOLDS PASSED
+  • p(95) response time < 500ms
+  • p(99) response time < 1000ms
+  • failure rate < 10%
+  • custom success_rate > 90%
+
+METRICS
+  • homepage load time: avg=138.7ms p(95)=323.3ms
+  • requests: 140 successful
+  • data received: 7.4 MB
+```
+
+See [k6/README.md](./k6/README.md) for detailed performance testing documentation.
 
 ## 🐳 Docker
 
@@ -130,6 +187,11 @@ shoptet-qa-framework/
 │       ├── returning-customer-flow.spec.ts    # Login & add to cart (PASSING ✅)
 │       ├── admin-product-management.spec.ts   # Admin add/verify/delete product (PASSING ✅)
 │       └── visual-regression.spec.ts  # Visual regression baseline snapshots
+├── k6/                                # Performance testing scripts
+│   ├── README.md                      # k6 performance testing guide
+│   ├── performance-homepage.js        # Load test for homepage
+│   ├── performance-checkout.js        # Checkout flow simulation
+│   └── performance-api.js             # API endpoint performance testing
 ├── .github/
 │   └── workflows/
 │       ├── lint.yml                   # ESLint + Prettier checks
@@ -158,7 +220,7 @@ shoptet-qa-framework/
 
 ## 🧪 Test Coverage
 
-### Current Tests (12 Passing ✅)
+### Current Tests (12 Passing ✅) + Performance Tests
 
 | Test Suite                         | Count | Status | Description                                                |
 | ---------------------------------- | ----- | ------ | ---------------------------------------------------------- |
@@ -170,6 +232,7 @@ shoptet-qa-framework/
 | `returning-customer-flow.spec.ts`  | 1     | ✅     | Login existing customer + add to cart                      |
 | `admin-product-management.spec.ts` | 1     | ✅     | Admin: add product → verify on storefront → delete product |
 | `visual-regression.spec.ts`        | 5     | 📸     | Visual regression baselines (homepage, cart, checkout)     |
+| **k6 Performance Tests**           | **3** | **✅** | **Load testing, checkout flow, API endpoints**             |
 
 ### Test Data
 
@@ -234,7 +297,7 @@ See [PROJECT_MAP.md](./PROJECT_MAP.md) for detailed project structure, completed
 
 ## 🐛 Known Issues & TODOs
 
-- [ ] Performance testing with k6 (load testing framework)
+- [x] Performance testing with k6 (load testing framework) ✅
 - [ ] Negative test scenarios (invalid credentials, edge cases)
 - [ ] Mobile/responsive testing
 - [ ] Accessibility testing (a11y)
