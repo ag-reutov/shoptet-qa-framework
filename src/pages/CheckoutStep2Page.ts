@@ -14,7 +14,7 @@ export class CheckoutStep2Page extends BasePage {
   constructor(page: Page) {
     super(page);
     this.fullNameInput = page.locator('input[name="billFullName"]');
-    this.emailInput = page.locator('input#email[name="email"]'); // Contact form email with id="email"
+    this.emailInput = page.locator('input#email[name="email"]');
     this.phoneInput = page.locator('input[name="phone"]');
     this.streetInput = page.locator('input[name="billStreet"]');
     this.cityInput = page.locator('input[name="billCity"]');
@@ -33,7 +33,6 @@ export class CheckoutStep2Page extends BasePage {
 
   async submitOrder() {
     await this.submitButton.click();
-    // Wait for order confirmation page - be more flexible with URL pattern
     await this.page.waitForURL(/.*/, { waitUntil: 'networkidle', timeout: 30000 });
   }
 }
