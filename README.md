@@ -208,7 +208,6 @@ shoptet-qa-framework/
 ├── Dockerfile                         # Docker container for CI/CD
 ├── docker-compose.yml                 # Docker compose setup
 ├── TEST_COVERAGE_PLAN.md              # Test coverage strategy and scope
-├── PROJECT_MAP.md                     # Detailed project status and roadmap
 └── README.md                          # This file
 ```
 
@@ -291,13 +290,8 @@ GitHub Actions workflows:
 
 Workflows already configured and executing in this repository.
 
-## 🗺️ Project Status & Roadmap
+## 🐛 Backlog (Optional Future Work)
 
-See [PROJECT_MAP.md](./PROJECT_MAP.md) for detailed project structure, completed work, and upcoming tasks.
-
-## 🐛 Known Issues & TODOs
-
-- [x] Performance testing with k6 (load testing framework) ✅
 - [ ] Negative test scenarios (invalid credentials, edge cases)
 - [ ] Mobile/responsive testing
 - [ ] Accessibility testing (a11y)
@@ -318,4 +312,4 @@ ISC
 ---
 
 **Target URL:** https://755742.myshoptet.com  
-**Branch:** `recreate-playwright` (active development)
+**Branch:** `recreate-playwright` (to be set as default/main; original project deprecated)

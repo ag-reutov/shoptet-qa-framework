@@ -34,10 +34,8 @@ test.describe('Product Search & Filter', () => {
     await addToCartBtn.click();
 
     // Navigate directly to cart
-    await page.goto('https://755742.myshoptet.com/kosik/');
-
-    // Verify we're in cart
-    await page.waitForLoadState('load');
+    await page.goto('/kosik/');
+    await page.waitForLoadState('networkidle');
     await cart.assertHasItems();
   });
 

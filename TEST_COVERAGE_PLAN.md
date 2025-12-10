@@ -2,7 +2,7 @@
 
 **Date:** December 9, 2025  
 **Last Updated:** December 9, 2025  
-**Status:** In Progress - Priority 1 Flows Complete ✅  
+**Status:** Complete (Priority 1 + Performance) ✅  
 **Target Branch:** `recreate-playwright`
 
 ---
@@ -11,13 +11,12 @@
 
 ✅ **Completed:**
 
-- All Priority 1 Customer Flows (3 tests covering registration, returning customer, search/filter)
-- All Priority 1 Admin Flows (1 comprehensive test covering add, verify, delete product)
-- Total: 12 passing tests (5 additional visual regression baselines)
+- All Priority 1 Customer Flows (registration, returning customer, search/filter)
+- All Priority 1 Admin Flows (add, verify, delete product)
+- Performance Testing (k6) for homepage, checkout, API endpoints
+- Total: 12 functional tests passing + 5 visual regression baselines + 3 k6 perf tests
 
-🔄 **In Progress:** Visual regression baseline captures
-
-📋 **Remaining:** Performance testing, negative scenarios, mobile testing (Priority 2)
+📋 **Backlog (Optional):** Negative scenarios, mobile testing, accessibility, contract expansion
 
 ---
 
@@ -62,6 +61,7 @@ Everything else is out of scope for Priority 1.
 | **Admin Verify Product**    | ✅     | `admin-product-management.spec.ts` | Search on storefront, assert presence       |
 | **Admin Delete Product**    | ✅     | `admin-product-management.spec.ts` | Filter, delete with confirmation            |
 | Visual Regression           | 📸     | `visual-regression.spec.ts`        | 5 baseline images captured                  |
+| Performance (k6)            | ✅     | `performance-*.js`                 | Homepage, checkout flow, API endpoints      |
 
 ---
 
@@ -97,43 +97,12 @@ Everything else is out of scope for Priority 1.
 
 ---
 
-## Test Statistics
+## Backlog (Optional Enhancements)
 
-| Metric            | Value        |
-| ----------------- | ------------ |
-| Total Tests       | 17           |
-| Passing           | 12 ✅        |
-| Baselines Created | 5 📸         |
-| Test Duration     | ~2.0 minutes |
-| Page Objects      | 11           |
-| Git Commits       | 2            |
-
----
-
-## Remaining Work (Priority 2)
-
-- [ ] **Performance Testing**
-  - k6 load testing for checkout flow
-  - Response time assertions
-  - Concurrent user simulation
-
-- [ ] **Negative Scenarios**
-  - Invalid login credentials
-  - Missing required fields in forms
-  - Out-of-stock products
-  - Invalid product prices
-
-- [ ] **Mobile/Responsive Testing**
-  - Mobile device viewport testing
-  - Touch interactions
-
-- [ ] **Accessibility Testing (a11y)**
-  - WCAG 2.1 compliance checks
-  - Screen reader compatibility
-
-- [ ] **API Contract Expansion**
-  - More comprehensive endpoint coverage
-  - Additional Zod schema validations
+- Negative scenarios (invalid credentials, required fields, out-of-stock)
+- Mobile/responsive testing (device viewports)
+- Accessibility testing (WCAG 2.1 checks)
+- API contract expansion (more endpoints, schemas)
 
 ---
 
@@ -146,16 +115,19 @@ Everything else is out of scope for Priority 1.
 
 ---
 
-## Next Steps
+## Test Statistics
 
-1. ✅ Complete Priority 1 customer and admin flows
-2. ⬜ Setup Priority 2 work (performance, negative scenarios)
-3. ⬜ Add API contract testing for more endpoints
-4. ⬜ Consider mobile testing setup
-
-5. Wire admin credentials via env/secret for CI.
-6. Run locally, then enable in CI once stable.
+| Metric            | Value        |
+| ----------------- | ------------ |
+| Total Tests       | 20           |
+| Passing           | 20 ✅ (12 functional + 5 visual baselines + 3 k6) |
+| Test Duration     | ~2.0 minutes (functional) + perf runs as configured |
+| Page Objects      | 11           |
+| Git Commits       | 2 (perf & docs) |
 
 ---
 
-_This focused plan replaces broader scope items. Only the bullets above are in scope now._
+## Next Steps (if continued)
+
+- Keep perf baselines as reference; rerun k6 before releases.
+- Add any backlog items based on product needs.

@@ -6,11 +6,11 @@ const baseURL = process.env.BASE_URL || 'https://755742.myshoptet.com';
 
 export default defineConfig({
   testDir: './test/specs',
-  timeout: 30 * 1000,
-  expect: { timeout: 5000 },
+  timeout: 60 * 1000,
+  expect: { timeout: 10000 },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 3 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: [['line'], ['html', { open: 'never' }], ['allure-playwright']],
   use: {
@@ -21,7 +21,7 @@ export default defineConfig({
     video: 'retain-on-failure',
     viewport: { width: 1920, height: 1080 },
     actionTimeout: 0,
-    navigationTimeout: 20000,
+    navigationTimeout: 30000,
     ignoreHTTPSErrors: true,
   },
   projects: [

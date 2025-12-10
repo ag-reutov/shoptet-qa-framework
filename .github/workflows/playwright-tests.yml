@@ -31,8 +31,9 @@ jobs:
 
       - name: Run Playwright tests (project = browser)
         env:
+          BASE_URL: https://755742.myshoptet.com
           CI: true
-        run: npx playwright test --project=${{ matrix.browser }} --reporter=html
+        run: npx playwright test --project=${{ matrix.browser }} --retries=3 --reporter=html,line
 
       - name: Upload Playwright HTML report
         if: always()

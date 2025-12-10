@@ -34,15 +34,15 @@ test.describe('Returning Customer Flow', () => {
 
     // Add first product to cart directly (stay on current page or navigate to category)
     // Go to a category page to ensure we see products
-    await page.goto('https://755742.myshoptet.com/obleceni/');
-    await page.waitForLoadState('load');
+    await page.goto('/obleceni/');
+    await page.waitForLoadState('networkidle');
 
     // Add first product to cart using HomePage method
     await home.addFirstProductToCart();
 
     // Go to cart and verify items are there
-    await page.goto('https://755742.myshoptet.com/kosik/');
-    await page.waitForLoadState('load');
+    await page.goto('/kosik/');
+    await page.waitForLoadState('networkidle');
     await cart.assertHasItems();
   });
 });
