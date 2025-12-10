@@ -55,7 +55,6 @@ jobs:
             const runId = ${{ github.event.workflow_run.id }};
             const repoUrl = context.payload.repository.html_url;
             const reportUrl = `${repoUrl}/actions/runs/${runId}`;
-            
             github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
