@@ -2,8 +2,8 @@ name: Generate Allure Report
 
 on:
   workflow_run:
-    workflows: [ "Playwright Tests" ]
-    types: [ completed ]
+    workflows: ["Playwright Tests"]
+    types: [completed]
 
 jobs:
   allure:
