@@ -1,10 +1,10 @@
-const globals = require('globals');
-const js = require('@eslint/js');
-const ts = require('typescript-eslint');
-const prettier = require('eslint-config-prettier');
-const playwright = require('eslint-plugin-playwright');
+import globals from 'globals';
+import js from '@eslint/js';
+import ts from 'typescript-eslint';
+import prettier from 'eslint-config-prettier';
+import playwright from 'eslint-plugin-playwright';
 
-module.exports = [
+export default [
   js.configs.recommended,
   ...ts.configs.recommended,
   prettier,
